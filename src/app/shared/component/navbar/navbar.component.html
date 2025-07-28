@@ -1,0 +1,75 @@
+<!-- ── Top guarantee strip ────────────────────────────────────────── -->
+<header class="top-strip">
+  30‑DAY MONEY‑BACK GUARANTEE
+</header>
+
+<!-- ── Main navigation bar ────────────────────────────────────────── -->
+<nav class="nav-root" aria-label="Primary">
+
+  <!-- ── Left: burger or desktop menu ─────────────────────────────── -->
+  <button
+    class="burger"
+    aria-label="Toggle menu"
+    (click)="toggleMenu()"
+    [class.open]="menuOpen"
+    *ngIf="isMobile"
+  >
+    <span></span><span></span><span></span>
+  </button>
+  <div
+    class="backdrop"
+    [class.show]="menuOpen && isMobile"
+    (click)="toggleMenu()"
+  ></div>
+
+  <ul class="menu" [class.open]="menuOpen || !isMobile">
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a>
+    </li>
+    <li>
+      <a
+        routerLink="/products"
+        routerLinkActive="active"
+      >All Products</a>
+    </li>
+    <!-- <li>
+      <a
+        routerLink="/collections"
+        routerLinkActive="active"
+      >Collections</a>
+    </li> -->
+    <li>
+      <a
+        routerLink="/help"
+        routerLinkActive="active"
+      >Help Center</a>
+    </li>
+    <li>
+      <a
+        routerLink="/account"
+        routerLinkActive="active"
+      >Account</a>
+    </li>
+    <li>
+      <a
+        routerLink="/cart"
+        routerLinkActive="active"
+      >Cart</a>
+    </li>
+  </ul>
+
+  <!-- ── Centre: stacked brand ────────────────────────────────────── -->
+  <h1 class="brand">
+    <a routerLink="/">
+      <span class="brand-line1">TrendyOutfits</span>
+      <span class="brand-line2">Dress Nest</span>
+    </a>
+  </h1>
+
+  <!-- ── Right‑hand utilities ─────────────────────────────────────── -->
+
+</nav>

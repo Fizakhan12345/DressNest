@@ -1,0 +1,32 @@
+/* Glass effect */
+.glass { background: rgba(255,255,255,0.8); backdrop-filter: blur(14px); }
+
+/* Progress steps */
+.step { @apply h-8 w-8 rounded-full flex items-center justify-center bg-gray-300 text-gray-600 transition; }
+.step.active { @apply bg-black text-white; }
+
+/* Floating-label inputs */
+.field { @apply relative; }
+.field input { @apply w-full border border-gray-300 rounded-md py-3 px-4 bg-transparent placeholder-transparent focus:outline-none focus:ring-2 focus:ring-black/70; }
+.field label {
+  @apply absolute left-4 top-3 text-gray-500 transition-all pointer-events-none;
+}
+.field input:not(:placeholder-shown) + label,
+.field input:focus + label {
+  @apply -translate-y-4 scale-90 text-gray-600;
+}
+
+/* Radio / pills */
+.radio input { @apply mr-2 accent-black; }
+.pill { @apply flex-1 text-center py-2 rounded-full border border-gray-300; }
+.pill.active { @apply bg-black text-white border-black; }
+
+/* Buttons */
+.btn-primary { @apply bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-900; }
+.btn-success { @apply bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-medium; }
+/* checkout.component.scss */
+
+/* Glass & progress styles retained */
+.glass        { background: rgba(255,255,255,0.8); backdrop-filter: blur(14px); }
+.step         { @apply h-8 w-8 rounded-full flex items-center justify-center bg-gray-300 text-gray-600; }
+.step.active  { @apply bg-indigo-600 text-white; }

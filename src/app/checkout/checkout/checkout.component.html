@@ -1,0 +1,201 @@
+<!-- Gradient wrapper -->
+<section class="min-h-screen bg-gradient-to-br from-rose-50 to-indigo-100 p-4">
+  <div class="max-w-5xl mx-auto glass rounded-2xl shadow-xl
+              flex flex-col-reverse lg:flex-row overflow-hidden">
+
+    <!-- ===== Order Summary (collapsible on mobile) ===== -->
+<!-- ===== ORDER SUMMARY ===== -->
+<details
+  #summaryDetails
+  class="bg-white/90 backdrop-blur-md rounded-2xl shadow-md overflow-hidden
+         lg:bg-transparent lg:backdrop-blur-0 lg:rounded-none"
+  open
+>
+  <!-- Mobile toggle bar -->
+  <summary
+    class="lg:hidden flex justify-between items-center px-6 py-4 cursor-pointer
+           text-sm font-medium text-gray-800 select-none"
+  >
+    <span>Order Summary</span>
+    <span
+      class="material-icons transition-transform duration-300"
+      [class.rotate-180]="summaryDetails.open"
+    >
+      expand_more
+    </span>
+  </summary>
+
+  <!-- Desktop heading -->
+  <h3 class="hidden lg:block text-xl font-semibold px-8 pt-10 text-gray-900">
+    Order Summary
+  </h3>
+
+  <!-- Items list -->
+  <div class="max-h-64 overflow-y-auto px-6 lg:px-8 pt-4 pb-6 lg:pb-8 space-y-4">
+    <div
+      *ngFor="let i of cart"
+      class="flex items-center gap-4 text-sm text-gray-800"
+    >
+      <img
+        [src]="i.image"
+        alt="{{ i.title }}"
+        class="w-14 h-14 rounded-md object-cover border border-gray-200 shadow-sm"
+      />
+      <div class="flex-1">
+        <p class="font-medium">{{ i.title }}</p>
+        <p class="text-xs text-gray-500">Qty: {{ i.qty }}</p>
+      </div>
+      <p class="font-semibold whitespace-nowrap">
+        ₹{{ (i.price * i.qty) | number }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Totals -->
+  <div class="border-t border-gray-200 px-6 lg:px-8 pt-4 pb-8 space-y-2 text-sm">
+    <div class="flex justify-between text-gray-700">
+      <span>Subtotal</span>
+      <span>₹{{ subtotal | number }}</span>
+    </div>
+
+    <div class="flex justify-between text-gray-700">
+      <span>Shipping</span>
+      <span>
+        {{ shipMethod === 'std' ? 'FREE' : '₹' + shippingFee() }}
+      </span>
+    </div>
+
+    <div class="flex justify-between text-base font-bold text-gray-900 pt-2">
+      <span>Total</span>
+      <span>₹{{ grandTotal | number }}</span>
+    </div>
+  </div>
+</details>
+
+
+    <!-- ===== Form Column ===== -->
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)"
+          class="flex-1 p-6 sm:p-8 md:p-10 space-y-8">
+
+      <!-- Progress -->
+      <div class="flex items-center gap-4 text-sm font-medium">
+        <div [class.active]="step===1" class="step">1</div>
+        <div class="flex-1 h-px bg-gray-300"></div>
+        <div [class.active]="step===2" class="step">2</div>
+      </div>
+
+      <h2 class="text-xl sm:text-2xl font-semibold">
+        {{ step === 1 ? 'Billing & Shipping' : 'Payment' }}
+      </h2>
+
+      <!-- ========== STEP 1 ========== -->
+      <ng-container *ngIf="step === 1">
+        <div class="grid sm:grid-cols-2 gap-4">
+         <mat-form-field appearance="fill" class="w-full">
+    <mat-label>Full Name</mat-label>
+    <input matInput name="name" ngModel required />
+  </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" name="email" ngModel required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Phone</mat-label>
+            <input matInput type="tel" name="phone" ngModel required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Pincode</mat-label>
+            <input matInput name="pincode" ngModel required />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Address line 1</mat-label>
+          <input matInput name="address1" ngModel required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Address line 2</mat-label>
+          <input matInput name="address2" ngModel />
+        </mat-form-field>
+
+        <div class="grid sm:grid-cols-3 gap-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>City</mat-label>
+            <input matInput name="city" ngModel required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>State</mat-label>
+            <input matInput name="state" ngModel required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Country</mat-label>
+            <input matInput name="country" ngModel required />
+          </mat-form-field>
+        </div>
+
+        <!-- Shipping Method -->
+        <div class="mt-4">
+          <p class="text-sm font-medium mb-1">Shipping Method</p>
+          <mat-radio-group [(ngModel)]="shipMethod" name="ship" class="flex flex-col gap-2">
+            <mat-radio-button value="std">Standard (4‑7 days) – FREE</mat-radio-button>
+            <mat-radio-button value="xprs">Express (1‑2 days) – ₹149</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <button mat-flat-button color="primary" class="w-full mt-6"
+                type="button" (click)="step = 2">
+          Continue to Payment
+        </button>
+      </ng-container>
+
+      <!-- ========== STEP 2 ========== -->
+      <ng-container *ngIf="step === 2">
+        <p class="text-sm font-medium mb-2">Payment Method</p>
+        <mat-radio-group [(ngModel)]="payMethod" name="method" class="flex gap-4 flex-wrap">
+          <mat-radio-button value="card">💳 Card</mat-radio-button>
+          <mat-radio-button value="upi">🔗 UPI</mat-radio-button>
+          <mat-radio-button value="cod">🏷 COD</mat-radio-button>
+        </mat-radio-group>
+
+        <!-- Card details -->
+        <div *ngIf="payMethod==='card'" class="space-y-4 pt-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Card number</mat-label>
+            <input matInput name="cardNo" ngModel required />
+          </mat-form-field>
+
+          <div class="grid grid-cols-3 gap-4">
+            <mat-form-field appearance="fill" class="col-span-2">
+              <mat-label>MM/YY</mat-label>
+              <input matInput name="exp" ngModel required />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>CVV</mat-label>
+              <input matInput name="cvv" ngModel required />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- UPI -->
+        <mat-form-field *ngIf="payMethod==='upi'" appearance="fill"
+                        class="w-full mt-4">
+          <mat-label></mat-label>
+          <input matInput name="upi" ngModel required />
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" class="w-full mt-6" type="submit">
+          Place Order
+        </button>
+
+        <button mat-button class="w-full text-center mt-2" type="button"
+                (click)="step = 1">← Back</button>
+      </ng-container>
+    </form>
+  </div>
+</section>

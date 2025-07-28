@@ -1,0 +1,43 @@
+<!-- Header -->
+<header class="page-header">
+  <h1 class="logo">ALL&nbsp;PRODUCTS</h1>
+  <!-- <p class="subtitle">ALL&nbsp;PRODUCTS</p> -->
+</header>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <span class="count">Showing 1–{{ products.length }} of 100+ items</span>
+
+  <select class="sort">
+    <option>Sort by: Featured</option>
+    <option>Price: Low to High</option>
+    <option>Price: High to Low</option>
+    <option>Newest</option>
+  </select>
+</div>
+
+<!-- Product Grid -->
+<section class="product-grid">
+  <article
+    class="product-card"
+    *ngFor="let p of products; trackBy: trackById"
+  >
+    <figure class="image-wrapper">
+      <img [src]="p.imgUrl" [alt]="p.name" />
+      <span *ngIf="p.badge" class="badge">{{ p.badge }}</span>
+    </figure>
+
+    <div class="info">
+      <h2 class="name">{{ p.name }}</h2>
+      <p class="price">
+        ${{ p.price  }}
+        <span
+          *ngIf="p.oldPrice"
+          class="old-price"
+        >
+          ${{ p.oldPrice  }}
+        </span>
+      </p>
+    </div>
+  </article>
+</section>

@@ -1,0 +1,123 @@
+<section class="min-h-screen bg-gray-50 py-8 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-2xl md:text-3xl font-semibold mb-6 md:mb-8">SHOPPING CART</h1>
+
+    <!-- ░░ SMALL‑SCREEN CARD LAYOUT ░░ -->
+    <div class="md:hidden space-y-5">
+      <div *ngFor="let item of cart" class="bg-white rounded-lg shadow p-4 flex gap-4">
+        <img [src]="item.image" alt="" class="w-24 h-24 object-cover rounded" />
+
+        <div class="flex-1 space-y-2">
+          <div>
+            <p class="font-medium">{{ item.title }}</p>
+            <p class="text-xs text-gray-500" *ngIf="item.size">Size: {{ item.size }}</p>
+          </div>
+
+          <!-- Qty -->
+          <div class="inline-flex items-center border rounded">
+            <button class="px-2 py-1" (click)="changeQty(item,-1)">−</button>
+            <span class="px-3">{{ item.qty }}</span>
+            <button class="px-2 py-1" (click)="changeQty(item,1)">+</button>
+          </div>
+
+          <!-- Price -->
+          <p class="text-sm font-semibold">₹{{ (item.price * item.qty) | number }}</p>
+        </div>
+
+        <button (click)="removeItem(item.id)" class="text-red-500 self-start">✕</button>
+      </div>
+
+      <p *ngIf="cart.length === 0" class="text-center text-gray-500 py-10">Your cart is empty.</p>
+    </div>
+
+    <!-- ░░ DESKTOP TABLE ░░ -->
+    <div class="hidden md:block overflow-x-auto bg-white shadow rounded-lg">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
+          <tr>
+            <th class="px-6 py-3 text-left">Product</th>
+            <th class="px-6 py-3 text-center">Qty</th>
+            <th class="px-6 py-3 text-right">Price</th>
+            <th class="px-6 py-3 text-right">Subtotal</th>
+            <th class="px-6 py-3"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let item of cart">
+            <td class="px-6 py-4 flex items-center gap-4">
+              <img [src]="item.image" alt="" class="w-16 h-16 rounded object-cover" />
+              <div>
+                <p class="font-medium">{{ item.title }}</p>
+                <p class="text-xs text-gray-500" *ngIf="item.size">Size: {{ item.size }}</p>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center whitespace-nowrap">
+              <div class="inline-flex items-center border rounded">
+                <button class="px-2 py-1" (click)="changeQty(item,-1)">−</button>
+                <span class="px-3">{{ item.qty }}</span>
+                <button class="px-2 py-1" (click)="changeQty(item,1)">+</button>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-right">₹{{ item.price | number }}</td>
+            <td class="px-6 py-4 text-right font-medium">₹{{ (item.price*item.qty) | number }}</td>
+            <td class="px-6 py-4 text-right">
+              <button (click)="removeItem(item.id)" class="text-red-500 hover:underline">Remove</button>
+            </td>
+          </tr>
+          <tr *ngIf="cart.length===0">
+            <td colspan="5" class="text-center py-10 text-gray-500">
+              Your cart is empty.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SUMMARY / ACTIONS (same for all screens) -->
+    <div class="mt-8 flex flex-col lg:flex-row justify-between gap-6">
+<!-- Coupon -->
+<div class="bg-white p-6 rounded-lg shadow w-full lg:max-w-md space-y-4">
+  <h2 class="text-lg font-semibold">Apply Coupon</h2>
+
+  <!-- Responsive form layout -->
+  <form class="flex flex-col sm:flex-row gap-3">
+    <input
+      type="text"
+      placeholder="Coupon code"
+      class="flex-1 border p-3 rounded-md"
+    />
+    <button
+      type="submit"
+      class="w-full sm:w-auto bg-black text-white px-6 py-3 rounded-md hover:bg-gray-800"
+    >
+      Apply
+    </button>
+  </form>
+</div>
+
+
+      <!-- Totals -->
+      <div class="bg-white p-6 rounded-lg shadow w-full lg:max-w-md space-y-4">
+        <h2 class="text-lg font-semibold">Cart Totals</h2>
+        <div class="flex justify-between text-sm">
+          <span>Subtotal</span>
+          <span>₹{{ total | number }}</span>
+        </div>
+        <div class="flex justify-between text-sm font-medium border-t pt-2">
+          <span>Total</span>
+          <span>₹{{ total | number }}</span>
+        </div>
+        <button
+          class="w-full bg-green-600 text-white py-3 mt-4 rounded-md font-semibold hover:bg-green-700 transition"
+          [disabled]="cart.length === 0"
+          routerLink="/check-out"
+        >
+          Proceed to Checkout
+        </button>
+        <a routerLink="/products" class="block text-center text-sm text-gray-600 hover:underline mt-2">
+          ← Continue Shopping
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

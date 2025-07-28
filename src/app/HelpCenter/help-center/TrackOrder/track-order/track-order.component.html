@@ -1,0 +1,83 @@
+
+<section
+  class="min-h-screen bg-[url('/assets/images/track.jpg')] bg-cover bg-center flex items-center justify-center px-4"
+>
+  <!-- translucent overlay so text stays readable -->
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <!-- CARD -->
+  <div
+    class="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-8 space-y-6"
+  >
+    <h1 class="text-2xl font-semibold text-center text-gray-900">
+      Track Your Order
+    </h1>
+
+    <!-- FORM -->
+    <form
+      #trackForm="ngForm"
+      (ngSubmit)="onTrackOrder(trackForm)"
+      class="space-y-4"
+    >
+      <input
+        type="text"
+        name="orderNumber"
+        ngModel
+        required
+        placeholder="Order Number"
+        class="w-full border border-gray-300 p-3 rounded focus:ring-2 focus:ring-black/70 outline-none transition"
+      />
+
+      <input
+        type="text"
+        name="emailOrPhone"
+        ngModel
+        required
+        placeholder="Email or Phone Number"
+        class="w-full border border-gray-300 p-3 rounded focus:ring-2 focus:ring-black/70 outline-none transition"
+      />
+
+      <button
+        type="submit"
+        [disabled]="isLoading"
+        class="w-full bg-black text-white py-3 rounded font-semibold tracking-wide hover:bg-gray-800 transition"
+      >
+        {{ isLoading ? 'Tracking…' : 'Track' }}
+      </button>
+    </form>
+
+    <!-- LOADING -->
+    <div
+      *ngIf="isLoading"
+      class="flex items-center justify-center gap-3 text-sm text-gray-600"
+    >
+      <span class="loader"></span>
+      Fetching order status…
+    </div>
+
+    <!-- RESULT -->
+    <div
+      *ngIf="orderStatus"
+      class="border rounded-md p-4 bg-gray-50 text-sm text-gray-700 space-y-1"
+    >
+      <p>
+        <strong>Status:</strong>
+        <span
+          [ngClass]="{
+            'text-green-600': orderStatus.status === 'Shipped',
+            'text-blue-600': orderStatus.status === 'In Transit',
+            'text-red-600': orderStatus.status === 'Cancelled'
+          }"
+          >{{ orderStatus.status }}</span
+        >
+      </p>
+      <p>
+        <strong>Expected Delivery:</strong> {{ orderStatus.deliveryDate }}
+      </p>
+      <p>
+        <strong>Tracking ID:</strong> {{ orderStatus.trackingId }} via
+        {{ orderStatus.carrier }}
+      </p>
+    </div>
+  </div>
+</section>

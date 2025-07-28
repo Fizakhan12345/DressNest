@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100vw;      /* allow 100‑viewport‑width */
+  margin-left: calc(50% - 50vw); /* “escape” container’s padding */
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}

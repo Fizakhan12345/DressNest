@@ -1,0 +1,294 @@
+// ① Guarantee banner
+.top-strip {
+  width: 100vw;                // 🔹 Force full viewport width
+  background: #e6dfd5;
+  color: #000;
+  letter-spacing: 0.15em;
+  text-align: center;
+  font-size: 0.75rem;
+  padding: 10px;
+  margin: 0;                   // 🔹 Ensure no margin collapse
+  box-sizing: border-box;     // 🔹 Ensure padding doesn’t break width
+}
+/* underline appears only when .active is present */
+.menu a,
+.utils a {
+  position: relative;
+  padding-bottom: 4px;          /* room for the line */
+  text-decoration: none;
+}
+
+.menu a.active::after,
+.utils a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;                    /* sits flush under text */
+  height: 2px;
+  background: currentColor;     /* uses the link’s colour */
+}
+
+// ② Navbar
+.nav-root {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  background: #fff;
+  height: 95px;
+  padding: 0 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+  // Left‑side menu links
+  .menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #000;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #888;
+      }
+    }
+  }
+
+  // Logo in the centre
+  .brand {
+    text-align: center;
+    line-height: 1;
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+    .brand-line1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+    .brand-line2 {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      margin-top: 2px;
+    }
+  }
+
+  // Right‑side utilities
+  .utils {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-self: end;
+
+    a,
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0;
+    }
+    button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid #000;
+      outline-offset: 2px;
+    }
+  }
+
+  // Hamburger lines
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    span {
+      width: 24px;
+      height: 2px;
+      background: #000;
+    }
+  }
+}
+
+// ③  Responsive rules
+@media (max-width: 992px) {
+  .nav-root {
+    grid-template-columns: auto auto; // burger + logo + utils
+    .burger {
+      display: flex;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 72px; /* height of navbar */
+      left: 0;
+      right: 0;
+      background: #fff;
+      padding: 1rem 2rem;
+      gap: 1rem;
+      a {
+        font-size: 1rem;
+      }
+      &.open {
+        display: flex;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .utils li:nth-child(1) { display: none; }     // hide “Account”
+  .utils li:nth-child(2) { display: none; }     // hide search icon
+  .utils li:nth-child(3) a { font-size: 0.8rem; }
+}
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2001;               // above backdrop
+
+  span {
+    width: 24px;
+    height: 2px;
+    background: #333;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    transform-origin: center;
+  }
+
+  &.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  &.open span:nth-child(2) {
+    opacity: 0;
+  }
+  &.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+// ②  Backdrop behind the menu
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2000;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+// ③  Mobile slide‑down menu: give it colour + animation
+@media (max-width: 992px) {
+  .nav-root {
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 72px;          // same as navbar height
+      left: 0;
+      right: 0;
+      background: #fffdf8;
+      padding: 2rem 1.5rem;
+      gap: 1.25rem;
+      transform: translateY(-20px);
+      opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+      &.open {
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      a {
+        font-size: 1.05rem;
+      }
+    }
+  }
+}
+$accent: #fffdf8;    // lighter shade
+$burger-color: #333; // softer grey
+/* Burger Icon */
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+.burger span {
+  width: 25px;
+  height: 3px;
+  background: black;
+  transition: 0.3s;
+}
+
+/* Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+/* Drawer (Mobile only) */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.mobile-drawer.open {
+  left: 0;
+}
+
+/* Desktop menu visibility */
+.menu.desktop {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 992px) {
+  .menu.desktop {
+    display: none;
+  }
+}
