@@ -1,0 +1,151 @@
+/* ------------------------------
+   MAIN FOOTER CONTAINER
+------------------------------ */
+.footer-container {
+  background: #1f1f1f;
+  color: #d1d1d1;
+  font-family: 'Inter', sans-serif;
+  padding: 4rem 1.5rem 2rem;
+  font-size: 0.95rem;
+}
+
+/* ------------------------------
+   GRID WRAPPER
+------------------------------ */
+.footer-wrapper {
+  max-width: 1300px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+}
+
+/* ------------------------------
+   COLUMN STYLES
+------------------------------ */
+.footer-column {
+  line-height: 1.75;
+}
+
+.footer-title {
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  margin-bottom: 1rem;
+  color: #cfcfcf;
+}
+
+.footer-subtitle {
+  color: #e5e5e5;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+/* ------------------------------
+   LINKS
+------------------------------ */
+.footer-link {
+  color: #d1d1d1;
+  transition: color 0.25s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: #e3c3a3;
+  }
+}
+
+/* Highlighted special links */
+.footer-link-highlight {
+  color: #e3c3a3;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.footer-label {
+  color: #ffffff;
+  font-weight: 500;
+  margin-right: 6px;
+}
+
+/* ------------------------------
+   LISTS
+------------------------------ */
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ------------------------------
+   SECURITY LABEL
+------------------------------ */
+.footer-secure {
+  color: #4ade80;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* ------------------------------
+   BOTTOM COPYRIGHT
+------------------------------ */
+.footer-bottom {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #373737;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #9f9f9f;
+  letter-spacing: 0.04em;
+}
+
+.footer-brand {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ------------------------------
+   MOBILE OPTIMIZATION
+------------------------------ */
+@media (max-width: 600px) {
+  .footer-container {
+    padding: 3rem 1rem;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+  }
+}
+.menu.desktop a {
+  position: relative;
+  padding-bottom: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Active underline */
+.menu.desktop a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  height: 2px;
+  background: #000;  // underline color
+}

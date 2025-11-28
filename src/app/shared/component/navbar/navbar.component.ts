@@ -8,59 +8,60 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-    standalone: true,        //  ★ add this line
+  standalone: true,
   imports: [CommonModule,
-     RouterLink,           // 👈 add
-    RouterLinkActive 
-  ], //  ★ at minimum (needed for *ngIf, *ngFor)
+    RouterLink,
+    RouterLinkActive
+  ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(@Inject(PLATFORM_ID) private platformId: any, 
-private route:Router) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+    private route: Router) { }
   menuOpen = false;
   isMobile = false;
-  cartCount = 0; // bind this to your cart service
+  cartCount = 0;
 
   @HostListener('window:resize')
   onResize() {
     this.isMobile = window.innerWidth <= 992;
     if (!this.isMobile) {
-      this.menuOpen = false; // reset if user grows screen
+      this.menuOpen = false;
     }
   }
-ngOnInit() {
-  if (isPlatformBrowser(this.platformId)) {
-    this.onResize();
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.onResize();
+    }
   }
-}
 
 
   toggleMenu() {
     if (this.isMobile) {
       this.menuOpen = !this.menuOpen;
+      document.body.style.overflow = this.menuOpen ? 'hidden' : '';
     }
   }
-  viewHomeComponent(){
-        this.route.navigate(['/home']);
+
+  viewHomeComponent() {
+    this.route.navigate(['/home']);
   }
-viewProductComponent(){
-  this.route.navigate(['/products'])
-}
-viewCollectionComponent(){
-  this.route.navigate(['/collections'])
-}
-viewHelpCenterComponent(){
-  this.route.navigate(['/help'])
-}
-viewAboutComponent(){
-  this.route.navigate(['/account'])
-}
-viewCartComponent(){
-  this.route.navigate(['/cart'])
-}
+  viewProductComponent() {
+    this.route.navigate(['/products'])
+  }
+  viewCollectionComponent() {
+    this.route.navigate(['/collections'])
+  }
+  viewHelpCenterComponent() {
+    this.route.navigate(['/help'])
+  }
+  viewAboutComponent() {
+    this.route.navigate(['/account'])
+  }
+  viewCartComponent() {
+    this.route.navigate(['/cart'])
+  }
   openSearch() {
-    // Do whatever opens your search dialog
   }
 }

@@ -1,12 +1,12 @@
-<!-- ── Top guarantee strip ────────────────────────────────────────── -->
+<!-- ── Guarantee strip ─────────────────────────── -->
 <header class="top-strip">
-  30‑DAY MONEY‑BACK GUARANTEE
+  30-DAY MONEY-BACK GUARANTEE
 </header>
 
-<!-- ── Main navigation bar ────────────────────────────────────────── -->
+<!-- ── Navbar ───────────────────────────────────── -->
 <nav class="nav-root" aria-label="Primary">
 
-  <!-- ── Left: burger or desktop menu ─────────────────────────────── -->
+  <!-- Mobile Burger -->
   <button
     class="burger"
     aria-label="Toggle menu"
@@ -16,60 +16,41 @@
   >
     <span></span><span></span><span></span>
   </button>
-  <div
-    class="backdrop"
-    [class.show]="menuOpen && isMobile"
+
+  <!-- Backdrop -->
+  <div 
+    class="drawer-backdrop"
+    *ngIf="menuOpen && isMobile"
     (click)="toggleMenu()"
   ></div>
 
-  <ul class="menu" [class.open]="menuOpen || !isMobile">
-    <li>
-      <a
-        routerLink="/"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >Home</a>
-    </li>
-    <li>
-      <a
-        routerLink="/products"
-        routerLinkActive="active"
-      >All Products</a>
-    </li>
-    <!-- <li>
-      <a
-        routerLink="/collections"
-        routerLinkActive="active"
-      >Collections</a>
-    </li> -->
-    <li>
-      <a
-        routerLink="/help"
-        routerLinkActive="active"
-      >Help Center</a>
-    </li>
-    <li>
-      <a
-        routerLink="/account"
-        routerLinkActive="active"
-      >Account</a>
-    </li>
-    <li>
-      <a
-        routerLink="/cart"
-        routerLinkActive="active"
-      >Cart</a>
-    </li>
-  </ul>
+  <!-- Mobile Drawer -->
+  <aside class="mobile-drawer" [class.open]="menuOpen">
+    <ul>
+      <li><a routerLink="/" (click)="toggleMenu()">Home</a></li>
+      <li><a routerLink="/products" (click)="toggleMenu()">All Products</a></li>
+      <li><a routerLink="/help" (click)="toggleMenu()">Help Center</a></li>
+      <li><a routerLink="/account" (click)="toggleMenu()">Account</a></li>
+      <li><a routerLink="/cart" (click)="toggleMenu()">Cart</a></li>
+    </ul>
+  </aside>
 
-  <!-- ── Centre: stacked brand ────────────────────────────────────── -->
+  <!-- Desktop Menu -->
+<ul class="menu desktop">
+  <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+  <li><a routerLink="/products" routerLinkActive="active">All Products</a></li>
+  <li><a routerLink="/help" routerLinkActive="active">Help Center</a></li>
+  <li><a routerLink="/account" routerLinkActive="active">Account</a></li>
+  <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
+</ul>
+
+
+  <!-- Centered Logo -->
   <h1 class="brand">
     <a routerLink="/">
       <span class="brand-line1">TrendyOutfits</span>
       <span class="brand-line2">Dress Nest</span>
     </a>
   </h1>
-
-  <!-- ── Right‑hand utilities ─────────────────────────────────────── -->
 
 </nav>

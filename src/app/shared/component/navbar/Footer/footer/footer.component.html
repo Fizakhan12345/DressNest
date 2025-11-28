@@ -1,15 +1,17 @@
-<footer class="bg-[#1f1f1f] text-gray-300 text-sm pt-16 pb-8 font-sans">
-  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+<footer class="footer-container">
+  <div class="footer-wrapper">
 
     <!-- Customer Service -->
-    <div>
-      <h3 class="text-white text-lg font-semibold mb-4 tracking-wide">Customer Service</h3>
-      <p class="mb-3 leading-relaxed">
-        Have questions? Start with our <a href="/faq" class="text-[#d8b08c] hover:underline">FAQ page</a>.
+    <div class="footer-column">
+      <h3 class="footer-title">Customer Service</h3>
+      <p class="footer-text">
+        Have questions? Start with our
+        <a routerLink="/faq" class="footer-link-highlight">FAQ page</a>.
       </p>
+
       <div>
-        <p class="font-medium text-gray-200 mb-1">Opening Hours (GMT+13):</p>
-        <ul class="space-y-1">
+        <p class="footer-subtitle">Opening Hours (GMT+13):</p>
+        <ul class="footer-list">
           <li>Mon – Fri: 8:00 AM – 7:00 PM</li>
           <li>Sat & Sun: Closed</li>
         </ul>
@@ -17,51 +19,52 @@
     </div>
 
     <!-- Contact Info -->
-    <div>
-      <h3 class="text-white text-lg font-semibold mb-4 tracking-wide">Contact Us</h3>
-      <ul class="space-y-2">
+    <div class="footer-column">
+      <h3 class="footer-title">Contact Us</h3>
+      <ul class="footer-list">
         <li>
-          <span class="text-white font-medium">Phone:</span>
-          <a href="tel:+6498024853" class="hover:underline">+91 6232886118</a>
+          <span class="footer-label">Phone:</span>
+          <a href="tel:+916232886118" class="footer-link">+91 6232886118</a>
         </li>
-          <li ngNonBindable>
-  <a href="mailto:fizakhan60611@gmail.com" class="hover:underline">
 
-    <!-- <div>fizakhan60611@gmail.com</div> -->
-  </a>
-</li>
         <li>
-          <a href="/contact" class="text-[#d8b08c] hover:underline">Go to Contact Page</a>
+          <span class="footer-label">Email:</span>
+          <a [href]="'mailto:' + gmail" class="footer-link">{{ gmail }}</a>
+        </li>
+
+        <li class="mt-2">
+          <a routerLink="/contact" class="footer-link-highlight">Go to Contact Page</a>
         </li>
       </ul>
     </div>
 
     <!-- Policies -->
-    <div>
-      <h3 class="text-white text-lg font-semibold mb-4 tracking-wide">Our Policies</h3>
-      <ul class="space-y-2">
-        <li><a href="/returns" class="hover:text-[#d8b08c] transition">Exchange & Returns</a></li>
-        <li><a href="/shipping" class="hover:text-[#d8b08c] transition">Shipping Policy</a></li>
-        <li><a href="/privacy" class="hover:text-[#d8b08c] transition">Privacy Policy</a></li>
-        <li><a href="/track" class="hover:text-[#d8b08c] transition">Track Your Order</a></li>
-        <li><a href="/payment" class="hover:text-[#d8b08c] transition">Payment Policy</a></li>
+    <div class="footer-column">
+      <h3 class="footer-title">Our Policies</h3>
+      <ul class="footer-list">
+        <li><a routerLink="/returns" class="footer-link">Exchange & Returns</a></li>
+        <li><a routerLink="/shipping" class="footer-link">Shipping Policy</a></li>
+        <li><a routerLink="/privacy" class="footer-link">Privacy Policy</a></li>
+        <li><a routerLink="/track" class="footer-link">Track Your Order</a></li>
+        <li><a routerLink="/payment" class="footer-link">Payment Policy</a></li>
       </ul>
     </div>
 
     <!-- Company Info -->
-    <div>
-      <h3 class="text-white text-lg font-semibold mb-4 tracking-wide">Company Info</h3>
-      <ul class="space-y-2">
-        <li><span class="text-white font-medium">Name:</span> Fiza Khan</li>
-        <li><span class="text-white font-medium">CoC No:</span> OC446864</li>
-        <li><a href="/about" class="hover:text-[#d8b08c] transition">About Us</a></li>
-        <li class="pt-4 text-green-400">🔒 100% SSL Secure Checkout</li>
+    <div class="footer-column">
+      <h3 class="footer-title">Company Info</h3>
+      <ul class="footer-list">
+        <li><span class="footer-label">Name:</span> Fiza Khan</li>
+        <li><span class="footer-label">CoC No:</span> OC446864</li>
+        <li><a routerLink="/about" class="footer-link">About Us</a></li>
+        <li class="footer-secure">🔒 100% SSL Secure Checkout</li>
       </ul>
     </div>
+
   </div>
 
   <!-- Divider -->
-  <div class="mt-12 border-t border-gray-700 pt-6 text-center text-xs text-gray-500 tracking-wide">
-    &copy; 2025 <span class="text-white font-medium">Trendy Outfits - Dress Nest </span>. All rights reserved.
+  <div class="footer-bottom">
+    &copy; 2025 <span class="footer-brand">Trendy Outfits - Dress Nest</span>. All rights reserved.
   </div>
 </footer>

@@ -13,42 +13,66 @@ import { ApiServiceService } from '../../authService/api-service.service';
 })
 export class AcountComponent {
  step = 1;
-  email = '';
-  otp = '';
-  sentOtp = '123456'; // simulate OTP
-  isLoading = false;
-  errorMessage = '';
+email = '';
+otp = '';
+password = '';
+confirmPassword = '';
+isLoading = false;
+errorMessage = '';
 
-  constructor(private router: Router,
-    private api:ApiServiceService
-  ) {}
+constructor(private router: Router) {}
 
-  async sendOtp() {
-    console.log(this.email)
-    try{
-      const signupResult=await this.api.signUp(this.email);
-      console.log(signupResult,"signupResult")
-    }
-    catch(err){
-
-    }
-    if (!this.email) {
-      this.errorMessage = 'Please enter a valid email';
-      return;
-    }
-    this.isLoading = true;
-    setTimeout(() => {
-      this.isLoading = false;
-      this.step = 2;
-      this.errorMessage = '';
-    }, 1000);
+handleSubmit() {
+  if (this.step === 1) {
+    this.sendOtp();
+  } else if (this.step === 2) {
+    this.verifyOtp();
+  } else if (this.step === 3) {
+    this.savePassword();
   }
+}
 
-  verifyOtp() {
-    if (this.otp === this.sentOtp) {
-      this.router.navigate(['/orders']); // Route to your orders page
+sendOtp() {
+  this.isLoading = true;
+  this.errorMessage = '';
+
+  // API CALL — Simulated here
+  setTimeout(() => {
+    this.isLoading = false;
+    this.step = 2; // Go to OTP screen
+  }, 1500);
+}
+
+verifyOtp() {
+  this.isLoading = true;
+  this.errorMessage = '';
+
+  // API CALL — Simulated here
+  setTimeout(() => {
+    this.isLoading = false;
+
+    if (this.otp === '123456') {
+      this.step = 3; // Move to password set screen
     } else {
-      this.errorMessage = 'Invalid OTP';
+      this.errorMessage = 'Invalid OTP. Try again.';
     }
+  }, 1200);
+}
+
+savePassword() {
+  this.errorMessage = '';
+
+  if (this.password !== this.confirmPassword) {
+    this.errorMessage = 'Passwords do not match!';
+    return;
   }
+
+  this.isLoading = true;
+
+  setTimeout(() => {
+    this.isLoading = false;
+    this.router.navigate(['/home']);
+  }, 1500);
+}
+
 }

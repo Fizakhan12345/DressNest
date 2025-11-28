@@ -18,39 +18,38 @@ export interface Product {
   styleUrl: './product.component.scss'
 })
 export class ProductComponent {
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Elegant Saree Set – Peach Gold',
-      imgUrl: 'https://picsum.photos/id/103/500/500',
-      price: 79.99,
-      oldPrice: 149.99,
-      badge: '1 + 1 FREE'
-    },
-    {
-      id: 2,
-      name: 'Indo‑Western Jumpsuit – Black Sparkle',
-      imgUrl: 'https://picsum.photos/id/1044/500/500',
-      price: 99.95,
-      oldPrice: 120.00,
-      badge: 'NEW'
-    },
-    {
-      id: 3,
-      name: 'Festive Lehenga Choli – Rose Red',
-      imgUrl: 'https://picsum.photos/id/1062/500/500',
-      price: 119.00,
-      oldPrice: 199.00,
-      badge: '2 + 2 FREE'
-    },
-    {
-      id: 4,
-      name: 'Boho Chic Kurti Set – Mustard Yellow',
-      imgUrl: 'https://picsum.photos/id/1074/500/500',
-      price: 49.95,
-      oldPrice: 89.00
-    }
-  ];
+products: Product[] = [
+  {
+    id: 1,
+    name: 'Satin Bodycon Mini Dress – Champagne Glow',
+    imgUrl: 'https://picsum.photos/id/1005/600/700',
+    price: 59.99,
+    oldPrice: 89.99,
+    badge: 'Hot'
+  },
+  {
+    id: 2,
+    name: 'Summer Floral Midi Dress – Paris Blue',
+    imgUrl: 'https://picsum.photos/id/1011/600/700',
+    price: 49.95,
+    badge: 'New'
+  },
+  {
+    id: 3,
+    name: 'Vintage Denim Shirt Dress – Western Blue',
+    imgUrl: 'https://picsum.photos/id/1018/600/700',
+    price: 79.00,
+    oldPrice: 109.00,
+    badge: 'Sale'
+  },
+  {
+    id: 4,
+    name: 'Boho Ruffle Maxi Dress – Sunset Orange',
+    imgUrl: 'https://picsum.photos/id/1021/600/700',
+    price: 69.95
+  }
+];
+
 
   /** For *ngFor trackBy to avoid re‑rendering */
   trackById(_: number, item: Product): number {
